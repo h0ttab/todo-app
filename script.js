@@ -65,6 +65,11 @@ function renderPage(){
         currentCheckbox.type = 'checkbox';
         currentCheckbox.className = 'buttonToDisable';
         currentCheckbox.checked = currentTodo.isDone;
+        if (currentCheckbox.checked){
+            currentDate.style.textDecoration = "line-through";
+            currentDescription.style.textDecoration = "line-through";
+        }
+
         currentCheckbox.onchange = ()=>{
             const todo = currentTodo;
             if (todo.isDone === true){
@@ -73,6 +78,7 @@ function renderPage(){
                 todo.isDone = true;
             }
             localStorage.setItem(recordKey, JSON.stringify(currentTodo));
+            renderPage();
         }
         
         const currentEditButton = document.createElement('button');
