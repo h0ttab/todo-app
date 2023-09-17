@@ -1,0 +1,23 @@
+#newTodoForm{
+    display: none;
+}
+
+.todoListItem{
+    margin-top: 10px;
+}
+
+#newTodoButton{
+    margin-top: 10px;
+}
+
+.todoButtons{
+    margin-left: 10px;
+}
+
+.buttonsToHide{
+    opacity: 0;
+}
+
+.todoListItem:hover>.buttonsToHide{
+    opacity: 1;
+}
