@@ -10,20 +10,21 @@
 <body>
     <body>
         <div class="header">
-            <h1>The todo app</h1>
+            <h1 id="appName">The todo app</h1>
         </div>
         <div class="container">
             <div id="todoList">
             </div>
             <div id="newTodo">
                 <div id="newTodoForm">
-                    <input type="datetime-local" id="newDate">
                     <input type="text" id="newDescription">
+                    <input type="datetime-local" id="newDate">
                     <button id="saveNewTodo">Save</button>
                     <button id="newTodoCancel">Cancel</button>
                 </div>
                 <div class="newTodoButton">
                     <button id="newTodoButton" class="buttonToDisable">New</button>
+                    <button onclick="clearLocalStorage()">Clear local storage</button>
                 </div>
             </div>
         </div>

@@ -57,9 +57,11 @@ function renderPage(){
 
         let currentDate = document.createElement('span');
         currentDate.textContent = (currentTodo.date).replace(`T`, ` / `);
+        currentDate.className = 'todoDate'
 
         let currentDescription = document.createElement('span');
-        currentDescription.textContent = ` — ` + currentTodo.description;
+        currentDescription.textContent = currentTodo.description + ' | ';
+        currentDescription.className = 'todoDescription'
 
         const currentCheckbox = document.createElement('input');
         currentCheckbox.type = 'checkbox';
@@ -67,7 +69,9 @@ function renderPage(){
         currentCheckbox.checked = currentTodo.isDone;
         if (currentCheckbox.checked){
             currentDate.style.textDecoration = "line-through";
+            currentDate.style.color = "rgb(115, 115, 115)";
             currentDescription.style.textDecoration = "line-through";
+            currentDescription.style.color = "rgb(115, 115, 115)";
         }
 
         currentCheckbox.onchange = ()=>{
@@ -81,16 +85,16 @@ function renderPage(){
             renderPage();
         }
         
-        const currentEditButton = document.createElement('button');
-        currentEditButton.innerHTML = 'Edit';
+        const currentEditButton = document.createElement('img');
+        currentEditButton.src = 'assets/ico/pencil.png';
         currentEditButton.id = recordKey + '_Edit';
         currentEditButton.className = 'todoButtons buttonToDisable buttonsToHide';
         currentEditButton.onclick = function(){
             editTodo(recordKey)
         };
 
-        const currentDeleteButton = document.createElement('button');
-        currentDeleteButton.innerHTML = 'Delete';
+        const currentDeleteButton = document.createElement('img');
+        currentDeleteButton.src = 'assets/ico/remove.png';
         currentDeleteButton.id = recordKey + '_Delete'
         currentDeleteButton.className = 'todoButtons buttonToDisable buttonsToHide';
         currentDeleteButton.onclick = ()=>{
@@ -99,8 +103,8 @@ function renderPage(){
         }
 
         currentTodoDiv.appendChild(currentCheckbox);
-        currentTodoDiv.appendChild(currentDate);
         currentTodoDiv.appendChild(currentDescription);
+        currentTodoDiv.appendChild(currentDate);
         currentTodoDiv.appendChild(currentEditButton);
         currentTodoDiv.appendChild(currentDeleteButton);
         todoList.appendChild(currentTodoDiv);
@@ -130,21 +134,21 @@ function editTodo(key){
     descriptionEditing.id = 'descriptionEditing';
     descriptionEditing.value = currentTodo.description;
 
-    const doneEditing = document.createElement('button');
-    doneEditing.innerHTML = 'Done';
-    doneEditing.className = 'todoButtons';
+    const doneEditing = document.createElement('img');
+    doneEditing.src = 'assets/ico/done.png';
+    doneEditing.className = 'doneEditingButton';
     doneEditing.onclick = function(){
         currentTodo.date = dateEditing.value;
         currentTodo.description = descriptionEditing.value;
         localStorage.setItem(key, JSON.stringify(currentTodo));
         for(let i = 0; i < allOtherButtons.length; ++i){
             allOtherButtons[i].disabled = '';
-        }
-        renderPage();
+            }
+            renderPage();
     }
 
-    const cancelEditing = document.createElement('button');
-    cancelEditing.innerHTML = 'Cancel';
+    const cancelEditing = document.createElement('img');
+    cancelEditing.src = 'assets/ico/cancel.png';
     cancelEditing.className = 'todoButtons';
     cancelEditing.onclick = function(){
         for(let i = 0; i < allOtherButtons.length; ++i){
@@ -152,10 +156,16 @@ function editTodo(key){
         }
         renderPage();
     }
-    todoEditing.appendChild(dateEditing);
+    
     todoEditing.appendChild(descriptionEditing);
+    todoEditing.appendChild(dateEditing);
     todoEditing.appendChild(doneEditing);
     todoEditing.appendChild(cancelEditing);
+}
+
+function clearLocalStorage(){
+    localStorage.clear();
+    renderPage();
 }
 
 renderPage()

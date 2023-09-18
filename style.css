@@ -2,22 +2,71 @@
     display: none;
 }
 
+*{
+    font-family: sans-serif;
+}
+
+.todoDescription{
+    font-size: 20px;
+}
+
+.todoDate{
+    font-size: 14px;
+}
+
 .todoListItem{
     margin-top: 10px;
+    display: block;
+    width: fit-content;
 }
 
 #newTodoButton{
     margin-top: 10px;
 }
 
-.todoButtons{
+.todoButtons, .doneEditingButton{
     margin-left: 10px;
+    cursor: pointer;
+}
+
+.doneEditingButton:hover{
+    scale: 1.5;
+    transition: 0.5s;
+}
+
+.doneEditingButton:not(:hover){
+    scale: 1.25;
+    transition: 0.5s;
+}
+
+.todoButtons:hover{
+    scale: 1.25;
+    transition: 0.5s;
+}
+
+.todoButtons:not(:hover){
+    scale: 1;
+    transition: 0.5s;
 }
 
 .buttonsToHide{
+    transition: 0.5s;
     opacity: 0;
 }
 
 .todoListItem:hover>.buttonsToHide{
+    transition: 0.5s;
     opacity: 1;
+}
+
+.buttonsToHide:hover{
+    transition: 0.25s;
+    scale: 1.2;
+    cursor: pointer;
+}
+
+.header, .container{
+    width: fit-content;
+    vertical-align: middle;
+    margin: auto;
 }
