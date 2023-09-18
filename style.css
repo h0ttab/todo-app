@@ -6,56 +6,84 @@
     font-family: sans-serif;
 }
 
+#todoList{
+    width: 500px;
+    text-wrap: wrap;
+}
+
 .todoDescription{
     font-size: 20px;
 }
 
 .todoDate{
+    display: inline-block;
+    width: 400px;
     font-size: 14px;
-}
-
-.todoListItem{
-    margin-top: 10px;
-    display: block;
-    width: fit-content;
 }
 
 #newTodoButton{
     margin-top: 10px;
+    width: 25%;
+    display: block;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    left: 37.5%;
+}
+
+#newTodoButton:hover{
+    width: 100%;
+    left: 0;
+}
+
+#newTodoButton:hover{
+    transition: 0.25s;
+    background-color: gray;
+    color: white;
+}
+
+#newTodoButton:not(:hover){
+    transition: 0.75s;
+    background-color: white;
 }
 
 .todoButtons, .doneEditingButton{
     margin-left: 10px;
     cursor: pointer;
+    position: relative;
+    top: 2px;
 }
 
 .doneEditingButton:hover{
     scale: 1.5;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 
 .doneEditingButton:not(:hover){
     scale: 1.25;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 
 .todoButtons:hover{
     scale: 1.25;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 
 .todoButtons:not(:hover){
     scale: 1;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 
 .buttonsToHide{
-    transition: 0.5s;
+    transition: 0.25s;
     opacity: 0;
 }
 
 .todoListItem:hover>.buttonsToHide{
-    transition: 0.5s;
+    transition: 0.25s;
     opacity: 1;
 }
 
@@ -69,4 +97,45 @@
     width: fit-content;
     vertical-align: middle;
     margin: auto;
+}
+
+.todoListItem{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: block;
+    width: fit-content;
+    padding: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: black;
+}
+
+.newTodoButtons:hover{
+    cursor: pointer;
+    scale: 1.25;
+    transition: 0.25s;
+}
+
+.saveNewTodoButton{
+    scale: 1.25;
+}
+
+.saveNewTodoButton:hover{
+    scale: 1.5;
+    transition: 0.25s;
+}
+
+.saveNewTodoButton, .newTodoButtons{
+    margin-left: 10px;
+}
+
+.newTodoButtons:not(:hover){
+    scale: 1;
+    transition: 0.25s;
+}
+
+.saveNewTodoButton:not(:hover){
+    scale: 1.25;
+    transition: 0.25s;
 }

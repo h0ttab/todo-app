@@ -10,20 +10,28 @@ getCurrentId();
 createNewTodoButton.addEventListener("click",()=>{
     createNewTodoForm.style.display = 'block';
     createNewTodoButton.disabled = 'disabled';
+    createNewTodoButton.style.display = 'none';
 })
 cancelNewTodoButton.addEventListener("click", ()=>{
     newTodoDate.value = null;
     newTodoDescription.value = null;
     createNewTodoForm.style.display = 'none';
     createNewTodoButton.disabled = '';
+    createNewTodoButton.style.display = 'block';
 })
 saveNewTodoButton.addEventListener("click", ()=>{
-    let newTodo = new SaveTodo(getCurrentId());
-    localStorage.setItem(`todo_${newTodo.id}`, JSON.stringify(newTodo))
-    localStorage.setItem('currentId', +(localStorage.getItem('currentId')) + 1);
-    todoList[`todo_${newTodo.id}`] = `todo_${newTodo.id}`;
-    cancelNewTodoButton.click();
-    renderPage();
+    if(newTodoDate.value == '' || newTodoDescription.value == ''){
+        alert('Пожалуйста, заполните все поля')
+    } else {
+        let newTodo = new SaveTodo(getCurrentId());
+        localStorage.setItem(`todo_${newTodo.id}`, JSON.stringify(newTodo))
+        localStorage.setItem('currentId', +(localStorage.getItem('currentId')) + 1);
+        todoList[`todo_${newTodo.id}`] = `todo_${newTodo.id}`;
+        createNewTodoButton.style.display = 'block';
+        cancelNewTodoButton.click();
+        renderPage();
+    }
+    
 })
 
 function getCurrentId(){
@@ -56,11 +64,11 @@ function renderPage(){
         currentTodoDiv.className = 'todoListItem';
 
         let currentDate = document.createElement('span');
-        currentDate.textContent = (currentTodo.date).replace(`T`, ` / `);
+        currentDate.textContent = ' (' + (currentTodo.date).replace(`T`, ` / `) + ')';
         currentDate.className = 'todoDate'
 
         let currentDescription = document.createElement('span');
-        currentDescription.textContent = currentTodo.description + ' | ';
+        currentDescription.textContent = currentTodo.description;
         currentDescription.className = 'todoDescription'
 
         const currentCheckbox = document.createElement('input');
@@ -68,7 +76,6 @@ function renderPage(){
         currentCheckbox.className = 'buttonToDisable';
         currentCheckbox.checked = currentTodo.isDone;
         if (currentCheckbox.checked){
-            currentDate.style.textDecoration = "line-through";
             currentDate.style.color = "rgb(115, 115, 115)";
             currentDescription.style.textDecoration = "line-through";
             currentDescription.style.color = "rgb(115, 115, 115)";
@@ -138,13 +145,18 @@ function editTodo(key){
     doneEditing.src = 'assets/ico/done.png';
     doneEditing.className = 'doneEditingButton';
     doneEditing.onclick = function(){
-        currentTodo.date = dateEditing.value;
-        currentTodo.description = descriptionEditing.value;
-        localStorage.setItem(key, JSON.stringify(currentTodo));
-        for(let i = 0; i < allOtherButtons.length; ++i){
-            allOtherButtons[i].disabled = '';
-            }
+        if (dateEditing.value == '' || descriptionEditing.value == '') {
+            alert('Пожалуйста, заполните все поля')
+        } else {
+            currentTodo.date = dateEditing.value;
+            currentTodo.description = descriptionEditing.value;
+            localStorage.setItem(key, JSON.stringify(currentTodo));
+            for(let i = 0; i < allOtherButtons.length; ++i){
+                allOtherButtons[i].disabled = '';
+             }
             renderPage();
+        }
+        
     }
 
     const cancelEditing = document.createElement('img');
@@ -153,6 +165,7 @@ function editTodo(key){
     cancelEditing.onclick = function(){
         for(let i = 0; i < allOtherButtons.length; ++i){
             allOtherButtons[i].disabled = '';
+            createNewTodoButton.style.display = 'block';
         }
         renderPage();
     }
